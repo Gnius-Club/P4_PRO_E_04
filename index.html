@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook - Robot Héroe Avanzado - Sesión 4: ¡Construcción del Núcleo – Fase 2!</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .header { background-color: #ffa500; color: white; text-align: center; padding: 10px; } /* Orange Accent */
+        .activity { margin-bottom: 20px; }
+        .banner {
+            background-color: #ffa500; /* Orange Accent */
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+            /* Added Flexbox for side-by-side layout */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Use details/summary for accordions */
+        details > summary {
+            list-style: none; /* Remove default triangle */
+        }
+        details > summary::-webkit-details-marker {
+            display: none; /* Remove default triangle for Chrome/Safari */
+        }
+        details > summary::marker {
+             display: none; /* Remove default triangle for Firefox */
+        }
+        /* Custom marker logic (optional) */
+        /*
+         details > summary:before {
+            content: '▶ ';
+            margin-right: 5px;
+         }
+         details[open] > summary:before {
+            content: '▼ ';
+         }
+        */
+        .content { display: block; padding: 10px; border: 1px solid #ddd; margin-top: -10px; margin-bottom: 10px; border-top: none;} /* Ensure content is visible by default */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+        span[style*="color: red;"] { /* Keep red span for emphasis */
+            font-weight: bold;
+        }
+         ul, ol {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .time-title { margin-bottom: 20px; text-align: center; font-size: 1.2em; color: #555;}
+        /* Style for Kanban icons */
+        .kanban-icon { font-size: 1.2em; margin: 0 2px; }
+        .kanban-todo { color: #f0ad4e; } /* Yellow/Orange for To Do */
+        .kanban-doing { color: #5bc0de; } /* Blue for Doing */
+        .kanban-test { color: #d9534f; } /* Red for Test */
+        .kanban-done { color: #5cb85c; } /* Green for Done */
+
+        /* Span styles for title and time in banner */
+        .activity-title {
+            flex-grow: 1; /* Allows title to take available space */
+            padding-right: 10px; /* Add some space between title and time */
+        }
+        .activity-time {
+            white-space: nowrap; /* Prevents time from wrapping */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Playbook - Robot Héroe Avanzado - Sesión 4: ¡Construcción del Núcleo – Fase 2!</h1>
+    </div>
+    <div class="container">
+        <h2 class="time-title">Tiempo efectivo de clase: 40 minutos</h2>
+
+        <!-- Resumen de Sesión -->
+        <details id="activity-0" class="activity">
+            <summary class="banner">
+                <span class="activity-title">📝 Resumen de Sesión</span>
+                <span class="activity-time"></span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td style="width: 50%; padding: 10px; border-right: 1px solid #ddd;">
+                            <strong>🎯 Objetivo de la Sesión:</strong>
+                            <ul>
+                                <li>Construir/programar la <span style="color: red;">segunda parte</span> de la funcionalidad central (núcleo) del robot.</li>
+                                <li>Integrar las lecciones aprendidas de las pruebas de la Sesión 3.</li>
+                                <li>Preparar pruebas para la nueva funcionalidad y empezar a pensar en pruebas combinadas.</li>
+                            </ul>
+                            <strong>⏱️ Duración Estimada:</strong> 40 minutos.
+                        </td>
+                        <td style="width: 50%; padding: 10px;">
+                            <strong>🔑 Entregable Clave:</strong>
+                            <ul>
+                                <li>Código/construcción de la segunda funcionalidad núcleo completado por el Ingeniero/a.</li>
+                                <li>Tarea correspondiente movida a "Listo para Probar" (🔬).</li>
+                                <li>Plan de pruebas diseñado por el Tester para la nueva función (y potencialmente para la combinación F1+F2).</li>
+                                <li>Supervisión de coherencia y anticipación de integración por el Arquitecto/a T.</li>
+                            </ul>
+                            <strong>🛠️ Materiales Específicos:</strong>
+                             <ul>
+                                <li>Proyector o pantalla interactiva.</li>
+                                <li>Presentación de diapositivas (Diapositivas 1-5 propuestas).</li>
+                                <li>Tableros Kanban de cada equipo (actualizados de la Sesión 3).</li>
+                                <li>Robots/kits de construcción, computadoras con software de programación.</li>
+                                <li>Componentes necesarios para la segunda funcionalidad núcleo (segundo sensor, lógica más compleja, etc.).</li>
+                                <li>Materiales para pruebas (según la nueva función).</li>
+                                <li>Documentación de sesiones anteriores (incluyendo aprendizajes de S3).</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Desarrollo de la Sesión -->
+
+        <!-- Actividad 1: ¡Stand-up de Avance del Núcleo! -->
+        <details id="activity-1" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">⏩ Actividad 1: ¡Stand-up de Avance del Núcleo!</span>
+                 <span class="activity-time">⏰ Tiempo: 5 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (1 min):</strong> Iniciar la sesión enfocada en la segunda parte del núcleo.
+                            <br><em>(<strong>Proyectar Diapositiva 1:</strong> Título Sesión 4 (Avanzado) + Objetivo: "¡Construcción del Núcleo – Fase 2! Objetivo: Construir/programar la segunda parte de la funcionalidad central").</em>
+                        </td>
+                        <td>
+                            "¡Equipos, de vuelta a la acción! Sesión 4: ¡Construcción del Núcleo – Fase 2! Hoy tomamos todo lo aprendido en las pruebas de la sesión anterior y nos lanzamos a construir la siguiente pieza importante de nuestro Robot Héroe Avanzado."
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 2 (3 min):</strong> Realizar el "Stand-up de Avance". Revisar Kanban, seleccionar y mover la siguiente tarea del núcleo.
+                            <br><em>(<strong>Proyectar Diapositiva 2:</strong> Stand-up de Avance - Kanban visual. Foco: Mover siguiente tarea del núcleo de 💡 Por Hacer a ⚙️ Haciendo. Preguntas: ¿Qué tarea sigue? ¿Cómo se conecta con la anterior? ¿Lecciones de S3 aplicables?).</em>
+                            <br>El Arquitecto/a T. o Ingeniero/a lidera la identificación y movimiento de la tarea.
+                        </td>
+                        <td>
+                            "Empezamos con nuestro 'Stand-up de Avance'. Primero, miren su Kanban, especialmente la columna <strong class='kanban-icon kanban-todo'>💡 Por Hacer</strong>."
+                            <br><br>
+                            "<strong>Arquitecto/a T. (📐) e Ingeniero/a (💻):</strong> Identifiquen cuál es la <span style='color: red;'>siguiente tarea lógica</span> para construir la segunda parte del núcleo, según lo que planificaron y refinaron. ¡Selecciónenla!"
+                            <br><br>
+                            "Una vez identificada, ¡muévanla de <strong class='kanban-icon kanban-todo'>💡 Por Hacer</strong> a <strong class='kanban-icon kanban-doing'>⚙️ Haciendo</strong>! Esta es nuestra misión principal de hoy."
+                            <br><br>
+                            "Ahora, brevemente en equipo: ¿Cómo se conecta esta nueva tarea con la que probaron en la sesión 3? ¿Hay alguna lección importante de las pruebas de ayer (errores, precisiones) que debamos tener en cuenta al construir esta parte?" <em>(Moderar breve discusión).</em>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong>Paso 3 (1 min):</strong> Confirmar la tarea del día y alinear al equipo.
+                        </td>
+                        <td>
+                            "¡Perfecto! Tarea seleccionada y movida a 'Haciendo'. Sabemos cómo se conecta con lo anterior y qué aprendizajes aplicar. ¡Listos para construir la Fase 2 del Núcleo!"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 2: ¡Manos al Código y Robot - Parte 2! -->
+        <details id="activity-2" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">🛠️ Actividad 2: ¡Manos al Código y Robot - Parte 2!</span>
+                 <span class="activity-time">⏰ Tiempo: 30 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (3 min):</strong> Detallar las acciones específicas de cada rol para esta segunda fase de construcción.
+                            <br><em>(<strong>Proyectar Diapositiva 3:</strong> Construcción Núcleo F2 - Roles en Acción: Ingeniero 💻: Programa 2ª funcionalidad (ej: leer sigue-líneas, esquivar básico con ultrasonido); Tester 🧪: Prepara pruebas para NUEVA función Y empieza a pensar en pruebas COMBINADAS (F1+F2); Arq. T. 📐: Supervisa implementación, asegura coherencia entre partes, ANTICIPA integración S5).</em>
+                        </td>
+                        <td>
+                            "¡Manos a la obra con la Parte 2 del Núcleo! Las misiones de los roles se adaptan:"
+                            <br><br>
+                            "▶️ <strong>Ingeniero/a (💻):</strong> ¡Foco en la nueva tarea en 'Haciendo' ⚙️! Programa esta segunda funcionalidad. Por ejemplo: el código para leer el sensor sigue-líneas y hacer correcciones básicas, o la función para esquivar un obstáculo detectado por el ultrasonido. ¡Asegúrate de aplicar los aprendizajes de la Sesión 3!"
+                            <br>
+                            "▶️ <strong>Tester (🧪):</strong> ¡Doble desafío! Primero, prepara las pruebas específicas para esta <span style='color: red;'>NUEVA</span> funcionalidad que se está construyendo. ¿Cómo la probarás de forma aislada? Segundo, ¡empieza a pensar en el futuro! ¿Cómo podríamos diseñar pruebas que combinen la función 1 (de S2/S3) y esta nueva función 2? ¿Qué pasaría si el robot sigue la línea y encuentra un obstáculo?"
+                            <br>
+                            "▶️ <strong>Arquitecto/a T. (📐):</strong> ¡Visión global! Supervisa que la implementación de esta segunda parte sea coherente con la primera. ¿Encajan bien lógicamente? Ayuda a resolver dudas de implementación. Y crucial: ¡Anticipa la Sesión 5! ¿Cómo vamos a <span style='color: red;'>integrar</span> estas dos partes del núcleo en el código principal? ¿Qué decisiones habrá que tomar?"
+                            <br><br>
+                            "¡Comunicación constante! ¡A trabajar en la Fase 2!"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 2 (25 min):</strong> Facilitar el trabajo práctico.
+                            <br>Circular, apoyando al Ingeniero/a con la nueva funcionalidad y la aplicación de aprendizajes.
+                            <br>Guiar al Tester en el diseño de pruebas para la nueva función y en la reflexión sobre pruebas combinadas.
+                            <br>Conversar con el Arq. T. sobre la coherencia y los planes de integración futura.
+                        </td>
+                        <td>
+                            <em>(Mientras circulas):</em>
+                            "Ingeniero/a, ¿cómo estás aplicando lo que aprendiste en las pruebas de S3 a este nuevo código?"
+                            "Tester, ¿qué pasos específicos tendrá tu prueba para esta función de [mencionar función 2]? ¿Ya tienes ideas para probar F1 y F2 juntas?"
+                            "Arquitecto/a T., ¿ves coherencia entre cómo se está programando F2 y cómo funciona F1? ¿Qué bloque de decisión crees que usaremos para integrarlas (ej: if/else)?"
+                            "¡Recuerden el objetivo: construir esta segunda pieza funcionalmente!"
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong>Paso 3 (2 min):</strong> Recordar y activar el Kanban Flow al finalizar la programación de la Parte 2.
+                            <br><em>(<strong>Proyectar Diapositiva 4:</strong> Kanban Flow: ¡Parte 2 a Probar! - Flecha de ⚙️ Haciendo a 🔬 Listo para Probar. Texto: "Ingeniero/a: Al finalizar programación Parte 2 -> Mover tarea a Listo para Probar 🔬").</em>
+                        </td>
+                        <td>
+                            "¡Atención Ingenieros/as! Igual que en la sesión anterior: cuando terminen de programar esta segunda tarea del núcleo y crean que está lista para ser probada (de forma aislada)..."
+                            <br><br>
+                            "¡Actualicen el Kanban! Muevan la tarjeta de la Fase 2 de <strong class='kanban-icon kanban-doing'>⚙️ Haciendo</strong> a <strong class='kanban-icon kanban-test'>🔬 Listo para Probar</strong>."
+                            <br><br>
+                            "¡Esto indica que ambas partes del núcleo podrían estar listas para pruebas individuales antes de pensar en integrarlas!"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 3: ¡Preparados para la Integración! -->
+        <details id="activity-3" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">🔗 Actividad 3: ¡Preparados para la Integración!</span>
+                 <span class="activity-time">⏰ Tiempo: 5 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                     <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (3 min):</strong> Revisión final del Kanban, enfocándose en el estado de ambas partes del núcleo.
+                            <br><em>(<strong>Proyectar Diapositiva 5:</strong> ¿Listos para Integrar? - Kanban al final de S4. Pregunta clave: ¿Están AMBAS partes del núcleo (o las necesarias) en "Listo para Probar" 🔬?).</em>
+                            <br>Cada equipo verifica si las tareas clave del núcleo (F1 y F2) están en 🔬.
+                        </td>
+                        <td>
+                            "¡Última revisión del día, equipos! Miren su tablero Kanban con ojos de integradores."
+                            <br><br>
+                            "La pregunta clave ahora es: ¿Las tareas correspondientes a la <span style='color: red;'>Parte 1</span> del núcleo Y a la <span style='color: red;'>Parte 2</span> del núcleo están AMBAS (o las que sean necesarias para empezar a unirlas) en la columna <strong class='kanban-icon kanban-test'>🔬 Listo para Probar</strong>?"
+                            <br><br>
+                            "Verifiquen el estado en su tablero. ¿Están esas piezas fundamentales listas para ser probadas individualmente antes de intentar que funcionen juntas?"
+                            <br><br>
+                            <em>(Dar tiempo para que verifiquen).</em>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong>Paso 2 (2 min):</strong> Cierre de la sesión y anticipación de la Sesión 5 (Integración).
+                        </td>
+                        <td>
+                            "¡Bien hecho hoy construyendo la segunda fase del núcleo! Ya sea que ambas partes estén listas para probar o alguna necesite ajustes, hemos avanzado."
+                            <br><br>
+                            "En la Sesión 5, daremos un paso crucial: ¡Integrando los Sistemas del Héroe! Nos enfocaremos en escribir el código que conecta estas diferentes partes del núcleo que han construido. El Arquitecto/a T. (📐) liderará la discusión técnica sobre cómo combinarlas, y el Ingeniero/a (💻) escribirá ese código 'maestro'. ¡Será emocionante ver si pueden funcionar juntas!"
+                            <br><br>
+                            "¡Guarden su progreso! ¡Nos vemos para la integración!"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+    </div> <!-- Fin del container -->
+</body>
+</html>
