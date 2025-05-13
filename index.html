@@ -14,34 +14,24 @@
             color: white;
             padding: 10px;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* Adjusted for spacing */
             font-weight: bold;
-            /* Added Flexbox for side-by-side layout */
-            display: flex;
+            list-style: none;
+            display: flex; /* For side-by-side title and time */
             justify-content: space-between;
             align-items: center;
+            border-radius: 5px; /* Rounded corners for banner */
         }
-        /* Use details/summary for accordions */
-        details > summary {
-            list-style: none; /* Remove default triangle */
+        .content { 
+            display: none; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            margin-bottom: 10px; 
+            border-radius: 5px; /* Rounded corners for content */
+            margin-top: -10px; /* Visual connection with banner */
+            padding-top: 20px; /* Avoid text clash */
+            background-color: #fff; /* Ensure content background is white or default */
         }
-        details > summary::-webkit-details-marker {
-            display: none; /* Remove default triangle for Chrome/Safari */
-        }
-        details > summary::marker {
-             display: none; /* Remove default triangle for Firefox */
-        }
-        /* Custom marker logic (optional) */
-        /*
-         details > summary:before {
-            content: '▶ ';
-            margin-right: 5px;
-         }
-         details[open] > summary:before {
-            content: '▼ ';
-         }
-        */
-        .content { display: block; padding: 10px; border: 1px solid #ddd; margin-top: -10px; margin-bottom: 10px; border-top: none;} /* Ensure content is visible by default */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -52,7 +42,7 @@
             text-align: left;
             vertical-align: top;
         }
-        span[style*="color: red;"] { /* Keep red span for emphasis */
+        span[style*="color: red;"] { 
             font-weight: bold;
         }
          ul, ol {
@@ -71,15 +61,49 @@
         .kanban-test { color: #d9534f; } /* Red for Test */
         .kanban-done { color: #5cb85c; } /* Green for Done */
 
-        /* Span styles for title and time in banner */
+        /* Making facilitator instructions clearer */
+        td em, td i { /* Style for italicized facilitator notes */
+            color: #555;
+            font-style: italic;
+            display: block; /* Put notes on new lines */
+            margin-top: 5px;
+        }
+        /* Ensure step <strong> tags render bold */
+        td strong { font-weight: bold; } /* General strong for keywords */
+        td > strong { display: block; margin-bottom: 5px; } /* For step headers */
+
         .activity-title {
-            flex-grow: 1; /* Allows title to take available space */
-            padding-right: 10px; /* Add some space between title and time */
+            flex-grow: 1; 
+            padding-right: 10px; 
         }
         .activity-time {
-            white-space: nowrap; /* Prevents time from wrapping */
+            white-space: nowrap; 
         }
     </style>
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content) {
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                } else {
+                    content.style.display = "none";
+                }
+            }
+        }
+
+        window.onload = () => {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.style.display = 'none';
+            });
+            // Open "Resumen de Sesión" by default
+            const resumenContent = document.getElementById('activity_0_content');
+            if (resumenContent) {
+                resumenContent.style.display = 'block';
+            }
+        };
+    </script>
 </head>
 <body>
     <div class="header">
@@ -89,12 +113,12 @@
         <h2 class="time-title">Tiempo efectivo de clase: 40 minutos</h2>
 
         <!-- Resumen de Sesión -->
-        <details id="activity-0" class="activity">
-            <summary class="banner">
+        <div id="activity-0" class="activity">
+            <div class="banner" onclick="toggleContent('activity_0_content')">
                 <span class="activity-title">📝 Resumen de Sesión</span>
                 <span class="activity-time"></span>
-            </summary>
-            <div class="content">
+            </div>
+            <div id="activity_0_content" class="content" style="display: block;">
                 <table>
                     <tr>
                         <td style="width: 50%; padding: 10px; border-right: 1px solid #ddd;">
@@ -128,17 +152,17 @@
                     </tr>
                 </table>
             </div>
-        </details>
+        </div>
 
         <!-- Desarrollo de la Sesión -->
 
         <!-- Actividad 1: ¡Stand-up de Avance del Núcleo! -->
-        <details id="activity-1" class="activity">
-            <summary class="banner">
+        <div id="activity-1" class="activity">
+            <div class="banner" onclick="toggleContent('activity_1_content')">
                  <span class="activity-title">⏩ Actividad 1: ¡Stand-up de Avance del Núcleo!</span>
                  <span class="activity-time">⏰ Tiempo: 5 minutos</span>
-            </summary>
-            <div class="content">
+            </div>
+            <div id="activity_1_content" class="content">
                 <table>
                     <tr>
                         <th style="width: 50%;">Acción</th>
@@ -146,8 +170,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>Paso 1 (1 min):</strong> Iniciar la sesión enfocada en la segunda parte del núcleo.
-                            <br><em>(<strong>Proyectar Diapositiva 1:</strong> Título Sesión 4 (Avanzado) + Objetivo: "¡Construcción del Núcleo – Fase 2! Objetivo: Construir/programar la segunda parte de la funcionalidad central").</em>
+                            <strong>Paso 1 (1 min):</strong>
+                            <ul>
+                                <li>Iniciar la sesión enfocada en la segunda parte del núcleo.</li>
+                                <li><strong>Proyectar Diapositiva 1</strong>.</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Equipos, de vuelta a la acción! Sesión 4: ¡Construcción del Núcleo – Fase 2! Hoy tomamos todo lo aprendido en las pruebas de la sesión anterior y nos lanzamos a construir la siguiente pieza importante de nuestro Robot Héroe Avanzado."
@@ -155,9 +182,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>Paso 2 (3 min):</strong> Realizar el "Stand-up de Avance". Revisar Kanban, seleccionar y mover la siguiente tarea del núcleo.
-                            <br><em>(<strong>Proyectar Diapositiva 2:</strong> Stand-up de Avance - Kanban visual. Foco: Mover siguiente tarea del núcleo de 💡 Por Hacer a ⚙️ Haciendo. Preguntas: ¿Qué tarea sigue? ¿Cómo se conecta con la anterior? ¿Lecciones de S3 aplicables?).</em>
-                            <br>El Arquitecto/a T. o Ingeniero/a lidera la identificación y movimiento de la tarea.
+                            <strong>Paso 2 (3 min):</strong>
+                            <ul>
+                                <li>Realizar el "Stand-up de Avance".</li>
+                                <li>Revisar Kanban, seleccionar y mover la siguiente tarea del núcleo.</li>
+                                <li><strong>Proyectar Diapositiva 2</strong>.</li>
+                                <li>El Arquitecto/a T. o Ingeniero/a lidera la identificación y movimiento de la tarea.</li>
+                            </ul>
                         </td>
                         <td>
                             "Empezamos con nuestro 'Stand-up de Avance'. Primero, miren su Kanban, especialmente la columna <strong class='kanban-icon kanban-todo'>💡 Por Hacer</strong>."
@@ -171,7 +202,10 @@
                     </tr>
                      <tr>
                         <td>
-                            <strong>Paso 3 (1 min):</strong> Confirmar la tarea del día y alinear al equipo.
+                            <strong>Paso 3 (1 min):</strong>
+                            <ul>
+                                <li>Confirmar la tarea del día y alinear al equipo.</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Perfecto! Tarea seleccionada y movida a 'Haciendo'. Sabemos cómo se conecta con lo anterior y qué aprendizajes aplicar. ¡Listos para construir la Fase 2 del Núcleo!"
@@ -179,15 +213,15 @@
                     </tr>
                 </table>
             </div>
-        </details>
+        </div>
 
         <!-- Actividad 2: ¡Manos al Código y Robot - Parte 2! -->
-        <details id="activity-2" class="activity">
-            <summary class="banner">
+        <div id="activity-2" class="activity">
+            <div class="banner" onclick="toggleContent('activity_2_content')">
                  <span class="activity-title">🛠️ Actividad 2: ¡Manos al Código y Robot - Parte 2!</span>
                  <span class="activity-time">⏰ Tiempo: 30 minutos</span>
-            </summary>
-            <div class="content">
+            </div>
+            <div id="activity_2_content" class="content">
                 <table>
                     <tr>
                         <th style="width: 50%;">Acción</th>
@@ -195,8 +229,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>Paso 1 (3 min):</strong> Detallar las acciones específicas de cada rol para esta segunda fase de construcción.
-                            <br><em>(<strong>Proyectar Diapositiva 3:</strong> Construcción Núcleo F2 - Roles en Acción: Ingeniero 💻: Programa 2ª funcionalidad (ej: leer sigue-líneas, esquivar básico con ultrasonido); Tester 🧪: Prepara pruebas para NUEVA función Y empieza a pensar en pruebas COMBINADAS (F1+F2); Arq. T. 📐: Supervisa implementación, asegura coherencia entre partes, ANTICIPA integración S5).</em>
+                            <strong>Paso 1 (3 min):</strong>
+                            <ul>
+                                <li>Detallar las acciones específicas de cada rol para esta segunda fase de construcción.</li>
+                                <li><strong>Proyectar Diapositiva 3</strong>.</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Manos a la obra con la Parte 2 del Núcleo! Las misiones de los roles se adaptan:"
@@ -212,10 +249,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>Paso 2 (25 min):</strong> Facilitar el trabajo práctico.
-                            <br>Circular, apoyando al Ingeniero/a con la nueva funcionalidad y la aplicación de aprendizajes.
-                            <br>Guiar al Tester en el diseño de pruebas para la nueva función y en la reflexión sobre pruebas combinadas.
-                            <br>Conversar con el Arq. T. sobre la coherencia y los planes de integración futura.
+                            <strong>Paso 2 (25 min):</strong>
+                            <ul>
+                                <li>Facilitar el trabajo práctico.</li>
+                                <li>Circular, apoyando al Ingeniero/a con la nueva funcionalidad y la aplicación de aprendizajes.</li>
+                                <li>Guiar al Tester en el diseño de pruebas para la nueva función y en la reflexión sobre pruebas combinadas.</li>
+                                <li>Conversar con el Arq. T. sobre la coherencia y los planes de integración futura.</li>
+                            </ul>
                         </td>
                         <td>
                             <em>(Mientras circulas):</em>
@@ -227,8 +267,11 @@
                     </tr>
                      <tr>
                         <td>
-                            <strong>Paso 3 (2 min):</strong> Recordar y activar el Kanban Flow al finalizar la programación de la Parte 2.
-                            <br><em>(<strong>Proyectar Diapositiva 4:</strong> Kanban Flow: ¡Parte 2 a Probar! - Flecha de ⚙️ Haciendo a 🔬 Listo para Probar. Texto: "Ingeniero/a: Al finalizar programación Parte 2 -> Mover tarea a Listo para Probar 🔬").</em>
+                            <strong>Paso 3 (2 min):</strong>
+                            <ul>
+                                <li>Recordar y activar el Kanban Flow al finalizar la programación de la Parte 2.</li>
+                                <li><strong>Proyectar Diapositiva 4</strong>.</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Atención Ingenieros/as! Igual que en la sesión anterior: cuando terminen de programar esta segunda tarea del núcleo y crean que está lista para ser probada (de forma aislada)..."
@@ -240,15 +283,15 @@
                     </tr>
                 </table>
             </div>
-        </details>
+        </div>
 
         <!-- Actividad 3: ¡Preparados para la Integración! -->
-        <details id="activity-3" class="activity">
-            <summary class="banner">
+        <div id="activity-3" class="activity">
+            <div class="banner" onclick="toggleContent('activity_3_content')">
                  <span class="activity-title">🔗 Actividad 3: ¡Preparados para la Integración!</span>
                  <span class="activity-time">⏰ Tiempo: 5 minutos</span>
-            </summary>
-            <div class="content">
+            </div>
+            <div id="activity_3_content" class="content">
                 <table>
                      <tr>
                         <th style="width: 50%;">Acción</th>
@@ -256,9 +299,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>Paso 1 (3 min):</strong> Revisión final del Kanban, enfocándose en el estado de ambas partes del núcleo.
-                            <br><em>(<strong>Proyectar Diapositiva 5:</strong> ¿Listos para Integrar? - Kanban al final de S4. Pregunta clave: ¿Están AMBAS partes del núcleo (o las necesarias) en "Listo para Probar" 🔬?).</em>
-                            <br>Cada equipo verifica si las tareas clave del núcleo (F1 y F2) están en 🔬.
+                            <strong>Paso 1 (3 min):</strong>
+                            <ul>
+                                <li>Revisión final del Kanban, enfocándose en el estado de ambas partes del núcleo.</li>
+                                <li><strong>Proyectar Diapositiva 5</strong>.</li>
+                                <li>Cada equipo verifica si las tareas clave del núcleo (F1 y F2) están en 🔬.</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Última revisión del día, equipos! Miren su tablero Kanban con ojos de integradores."
@@ -272,7 +318,10 @@
                     </tr>
                      <tr>
                         <td>
-                            <strong>Paso 2 (2 min):</strong> Cierre de la sesión y anticipación de la Sesión 5 (Integración).
+                            <strong>Paso 2 (2 min):</strong>
+                            <ul>
+                                <li>Cierre de la sesión y anticipación de la Sesión 5 (Integración).</li>
+                            </ul>
                         </td>
                         <td>
                             "¡Bien hecho hoy construyendo la segunda fase del núcleo! Ya sea que ambas partes estén listas para probar o alguna necesite ajustes, hemos avanzado."
@@ -284,7 +333,7 @@
                     </tr>
                 </table>
             </div>
-        </details>
+        </div>
 
     </div> <!-- Fin del container -->
 </body>
